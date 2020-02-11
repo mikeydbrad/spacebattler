@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/chancebg.ogg-9c866b52eb74866918c468713b5022b2.oggstr"
+
+[deps]
+
+source_file="res://audio/chancebg.ogg"
+dest_files=[ "res://.import/chancebg.ogg-9c866b52eb74866918c468713b5022b2.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

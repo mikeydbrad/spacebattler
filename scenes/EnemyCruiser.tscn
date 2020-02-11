@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/Enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://sprites/enemycruiser.png" type="Texture" id=2]
+[ext_resource path="res://scenes/LaserBeamE.tscn" type="PackedScene" id=3]
+
+[node name="Enemy" instance=ExtResource( 1 )]
+LaserBeamE = ExtResource( 3 )
+
+[node name="SpriteCruiser" type="Sprite" parent="." index="0"]
+texture = ExtResource( 2 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="1"]
+polygon = PoolVector2Array( -1.02298, -5.95655, -5.99608, -5.99924, -5.99608, -3.99292, -6.97789, -4.01427, -6.97789, 1.00152, -5.99608, 0.980179, -5.99608, 4.99281, -4.97158, 4.97147, -4.99292, 5.99597, -3.98977, 5.97463, -3.96842, 0.98018, -3.00795, 1.02287, -3.00795, 4.99281, -2.00479, 4.99281, -2.02614, 5.99597, -1.02298, 5.97463, -1.00164, 7.98094, 0.961992, 8.00229, 1.02602, 5.95328, 1.98649, 5.97463, 2.00784, 4.97147, 3.011, 5.01415, 2.96831, 1.00152, 3.99281, 1.02287, 3.99281, 5.99597, 4.99597, 5.99597, 5.01731, 4.99281, 5.99913, 4.97147, 5.97778, 0.98018, 7.00229, 0.98018, 6.98094, -3.99292, 6.02047, -3.97158, 6.04181, -6.02058, 1.00468, -5.97789, 0.983338, -5.01742, -1.04432, -5.01742 )
+
+[node name="CruiserFireTimer" type="Timer" parent="." index="2"]
+
+[node name="Barrel" type="Position2D" parent="." index="3"]
+position = Vector2( 0, 11.0729 )
+[connection signal="timeout" from="CruiserFireTimer" to="." method="_on_CruiserFireTimer_timeout"]

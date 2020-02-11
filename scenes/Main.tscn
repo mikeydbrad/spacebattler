@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://audio/chancebg.ogg" type="AudioStream" id=2]
+[ext_resource path="res://scripts/Main.gd" type="Script" id=3]
+[ext_resource path="res://scenes/EnemyScout.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/EnemyCruiser.tscn" type="PackedScene" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 8, 216 )
+
+[node name="Main" type="Node"]
+script = ExtResource( 3 )
+EnemyScout = ExtResource( 4 )
+EnemyCruiser = ExtResource( 5 )
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 120, 394 )
+rotation = -1.5708
+
+[node name="LeftBorder" type="KinematicBody2D" parent="."]
+
+[node name="CollisionShape2DL" type="CollisionShape2D" parent="LeftBorder"]
+position = Vector2( -8, 216 )
+shape = SubResource( 1 )
+
+[node name="RightBorder" type="KinematicBody2D" parent="."]
+position = Vector2( 240, 0 )
+
+[node name="CollisionShape2DR" type="CollisionShape2D" parent="RightBorder"]
+position = Vector2( 8, 216 )
+shape = SubResource( 1 )
+
+[node name="MenuMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+autoplay = true
+
+[node name="EnemySpawnTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="ScoreTimer" type="Timer" parent="."]
+[connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_EnemySpawner_timeout"]
