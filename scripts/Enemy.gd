@@ -2,12 +2,20 @@ extends KinematicBody2D
 
 export (PackedScene) var LaserBeamE
 
-const MOVE_SPEED = 90
+const MOVE_SPEED = 120
 var velocity = Vector2(-1, 0)
 
 func _ready():
-	if ($CruiserFireTimer):
-		$CruiserFireTimer.start()
+	if (.has_node("CruiserFireTimer")):
+		# Enemy might be EnemyCruiser or EnemyScout
+		# only one of them has a cruiserfiretimer
+		# QUESTION: better way to do this?
+		randomize()
+		var time = randf() + 0.5
+		# generates a random float from 0.0-1.0, then adds 0.5 so it will be
+		# atleast > 0.5s fire speed
+		$CruiserFireTimer.wait_time = time # change timer's time
+		$CruiserFireTimer.start() # start the timer
 
 func hit():
 	queue_free()

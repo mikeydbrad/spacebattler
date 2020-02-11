@@ -10,16 +10,23 @@ var livesLeft = 3
 
 func get_input():
 	velocity = Vector2()
+	var modifier = 0
 	if Input.is_action_pressed("ui_right"):
+		if Input.is_action_pressed("accelerate"):
+			modifier = 50
 		move(1)
 	elif Input.is_action_pressed("ui_left"):
+		if Input.is_action_pressed("accelerate"):
+			modifier = 50
 		move(-1)
 	if Input.is_action_just_pressed("ui_accept"):
 		shoot()
-	velocity = velocity.normalized() * MOVE_SPEED
+	velocity = velocity.normalized() * (MOVE_SPEED + modifier)
 
-func move(move):
-	velocity.x += move
+func move(direction):
+	# direction = 1 // right
+	# direction = 2 // left
+	velocity.x = direction
 
 func shoot():
 	var laser = LaserBeamP.instance()
@@ -35,11 +42,13 @@ func shoot():
 func hit():
 	if (livesLeft > 0):
 		livesLeft -= 1
+		print("lost a life!")
 	else:
 		# trigger a game over
 		# player ship destroyed
 		# does the ship explode? or does a message appear?
 		queue_free()
+		get_parent().game_over()
 
 func _physics_process(delta):
 	get_input()

@@ -24,9 +24,10 @@ func _on_EnemySpawner_timeout():
 func game_over():
 	# reopen the main menu, but there will be a "you lost! score: ####"
 	# new_game()
+	print("game over!")
 	pass
 
-func new_game():
+func start_game():
 	score = 0
 	# choose new starting position for players ship
 	pass
