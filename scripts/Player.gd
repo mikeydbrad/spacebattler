@@ -47,8 +47,8 @@ func hit():
 		# trigger a game over
 		# player ship destroyed
 		# does the ship explode? or does a message appear?
-		queue_free()
 		get_parent().game_over()
+		queue_free()
 
 func _physics_process(delta):
 	get_input()

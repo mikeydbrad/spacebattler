@@ -2,11 +2,12 @@ extends Node
 
 export (PackedScene) var EnemyScout
 export (PackedScene) var EnemyCruiser
+export (PackedScene) var Player
 
 var score
 
 func _ready():
-	pass
+	spawn_player()
 
 func _on_EnemySpawner_timeout():
 	# on timer timeout, spawn enemy
@@ -22,12 +23,24 @@ func _on_EnemySpawner_timeout():
 	add_child(enemy)
 
 func game_over():
-	# reopen the main menu, but there will be a "you lost! score: ####"
-	# new_game()
-	print("game over!")
-	pass
+	$EnemySpawnTimer.stop()
+	$MainMenu.visible = true
+	var enemies = get_tree().get_nodes_in_group("enemies")
+	for enemy in enemies:
+		enemy.queue_free()
+	var lasers = get_tree().get_nodes_in_group("lasers")
+	for laser in lasers:
+		laser.queue_free()
+	spawn_player()
 
 func start_game():
+	$EnemySpawnTimer.start()
+	print("start game")
 	score = 0
 	# choose new starting position for players ship
-	pass
+
+func spawn_player():
+	var player = Player.instance()
+	player.position = $PlayerStartPos.position
+	player.rotation_degrees = -90
+	add_child(player)
